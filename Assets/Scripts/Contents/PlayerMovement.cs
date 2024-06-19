@@ -13,12 +13,12 @@ public class PlayerMovement : MonoBehaviour
     
     private Rigidbody2D _rigid;
     private CapsuleCollider2D _collider;
-
-    private bool _isGrounded; // 바닥체크
+    
     private Vector3 _footPos; // 발 위치
     private	int	_currentJumpCount = 0;	// 현재 가능한 점프 횟수
     
     public bool IsLongJump { get; set; } = false;
+    public bool IsGrounded { get; private set; } = false; // 바닥체크
 
     public void Move(float x)
     {
@@ -45,10 +45,10 @@ public class PlayerMovement : MonoBehaviour
         // 바닥체크
         Bounds bounds = _collider.bounds;
         _footPos = new Vector2(bounds.center.x, bounds.min.y);
-        _isGrounded = Physics2D.OverlapCircle(_footPos, 0.1f, _groundLayer);
+        IsGrounded = Physics2D.OverlapCircle(_footPos, 0.1f, _groundLayer);
         
         // 플레이어의 발이 땅에 닿아있고, y축 속도가 0이하이면 점프횟수 초기화
-        if (_isGrounded && _rigid.velocity.y <= 0)
+        if (IsGrounded && _rigid.velocity.y <= 0)
         {
             _currentJumpCount = _maxJumpCount;
         }
