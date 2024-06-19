@@ -6,22 +6,33 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    private Vector3 _dir;
+    private Vector3 _moveDir;
+    private Vector3 MoveDir
+    {
+        get { return _moveDir;}
+        set
+        {
+            _moveDir = value;
+            float scale = 0 < _moveDir.x ? -1f : 1f;
+            transform.localScale = new Vector3(scale, 1, 1);
+        }
+    }
+
     private void Awake()
     {
-         _dir = Quaternion.Euler(0, 0, -45) * Vector2.down;
+         MoveDir = Quaternion.Euler(0, 0, UnityEngine.Random.Range(-80f, 80f)) * Vector2.down;
     }
 
     private void Update()
     {
-        transform.position += _dir * 5 * Time.deltaTime;
+        transform.position += MoveDir * 5 * Time.deltaTime;
     }
     
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (LayerMask.NameToLayer("Ground") == other.gameObject.layer || LayerMask.NameToLayer("Wall") == other.gameObject.layer)
         {
-            _dir = Vector3.Reflect(_dir, other.transform.up);
+            MoveDir = Vector3.Reflect(MoveDir, other.transform.up);
         }
     }
 }
