@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(float x)
     {
-        
+        _rigid.velocity = new Vector2(x * _speed, _rigid.velocity.y);
     }
 
     public void Jump()
