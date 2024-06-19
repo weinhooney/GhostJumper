@@ -47,11 +47,23 @@ public static class Define
         Obstacle = 9,
         Projectile = 10,
     }
+    
+    public enum EState
+    {
+        None,
+        Idle,
+        Die,
+        Run,
+        Jump,
+    }
 }
 
 public static class AnimName
 {
     //public const string ATTACK_A = "attack";
+    public const string IDLE = "idle";
+    public const string RUN = "run";
+    public const string JUMP1 = "jump";
 }
 
 public static class SortingLayers

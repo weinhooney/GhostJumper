@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
     public void Move(float x)
     {
         _rigid.velocity = new Vector2(x * _speed, _rigid.velocity.y);
+        float scale = 0 < x ? 1 : -1;
+        transform.localScale = new Vector3(scale, 1, 1);
     }
 
     public void Jump()
